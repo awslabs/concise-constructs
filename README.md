@@ -56,7 +56,7 @@ class Stack extends cdk.Stack {
   constructor(scope: cdk.App, id: string) {
     super(scope, id);
 
-    this.fn = new lambda.Function(this, "", {
+    this.fn = new lambda.Function(this, "fn", {
       code: new lambda.InlineCode(`...`),
       handler: "handler",
       runtime: lambda.Runtime.NODEJS_12_X,
