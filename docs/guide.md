@@ -64,7 +64,7 @@ interface MyProps {
   hello: string;
 }
 
-const Stack = C8(cdk.Stack, (define, props: MyProps) => {
+const Stack = C(cdk.Stack, (define, props: MyProps) => {
   // ...
 });
 
@@ -79,8 +79,8 @@ interface MyProps {
   hello: string;
 }
 
-- const Stack = C8(cdk.Stack, (define, props: MyProps) => {
-+ const Stack = C8(cdk.Stack, (define, props?: MyProps) => {
+- const Stack = C(cdk.Stack, (define, props: MyProps) => {
++ const Stack = C(cdk.Stack, (define, props?: MyProps) => {
   // ...
 });
 
@@ -108,7 +108,7 @@ import * as cdk from "@aws-cdk/core";
 import * as lambda from "@aws-cdk/aws-lambda";
 import {C} from "concise-constsructs";
 
-const Stack = C8(cdk.Stack, (define) => {
+const Stack = C(cdk.Stack, (define) => {
   define`handler`(lambda.Function, {
     code: new lambda.InlineCode(`...`),
     handler: "handler",
@@ -120,7 +120,7 @@ const Stack = C8(cdk.Stack, (define) => {
 The value returned from define is the instance of `lambda.Function`. Let's capture it in a variable, and ensure that it is a member of the resulting construct constructor:
 
 ```diff
-const Stack = C8(cdk.Stack, (define) => {
+const Stack = C(cdk.Stack, (define) => {
 - define`handler`(lambda.Function, {
 + const fn = define`handler`(lambda.Function, {
     code: new lambda.InlineCode(`...`),
