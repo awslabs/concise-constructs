@@ -8,7 +8,7 @@
 
 ## Resources
 
-- [Video Tutorial &rarr;](#)<br />A friendly end-to-end introduction on YouTube
+- [Video Tutorial (in progress) &rarr;](#)<br />A friendly end-to-end introduction on YouTube
 - [Guide &rarr;](docs/guide.md)<br /> An explanation of the mechanics
 - [Example &rarr;](example)<br />An example API for your viewing pleasure
 
