@@ -1,0 +1,17 @@
+only: issues
+daysUntilStale: 30
+daysUntilClose: 7
+exemptLabels:
+  - feature-request
+  - to-be-reproduced
+  - bug
+  - tracked
+  - needs-discussion
+staleLabel: pending-close-response-required
+markComment: >
+  Please follow-up on this issue if you wish to keep it open. Thank you!
+
+
+closeComment: >
+  This issue has been closed because of inactivity. Please open a new issue if you are still encountering problems.
+
