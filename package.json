@@ -37,8 +37,9 @@
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.7",
     "aws-cdk": "^1.75.0",
-    "aws-sdk": "^2.799.0",
+    "aws-sdk": "^2.813.0",
     "conditional-type-checks": "^1.0.5",
+    "esbuild": "^0.8.23",
     "husky": "^4.3.0",
     "javascript-stringify": "^2.0.1",
     "jest": "^26.6.3",
@@ -81,7 +82,7 @@
     "release": "standard-version",
     "release-next": "npm run release -- --prerelease next",
     "example": "func() { cdk ${1} --app 'ts-node example';}; func",
-    "deploy-example": "rm -rf example/lambda/dist && tsc -P example/lambda/tsconfig.json && npm run example deploy",
+    "deploy-example": "npm run example deploy",
     "destroy-example": "npm run example destroy"
   }
 }
