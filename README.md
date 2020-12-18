@@ -2,13 +2,14 @@
 
 [![npm version](https://img.shields.io/npm/v/style-dictionary.svg?style=flat-square)](https://badge.fury.io/js/style-dictionary) ![license](https://img.shields.io/npm/l/style-dictionary.svg?style=flat-square) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/amzn/style-dictionary/blob/master/CONTRIBUTING.md#submitting-pull-requests)
 
-**A functional-feeling utility for defining constructs, without the cognitive overhead of scope.** "Concise" constructs are interoperable with classical constructs. The difference is cosmetic; if concise constructs better-jive with your API design sensibilities, great! Otherwise, [classical constructs](https://github.com/aws/constructs) are still state of the art.
+**A utility for defining constructs without ever thinking about scope.** "Concise" constructs are interoperable with classical constructs. The difference is cosmetic; if concise constructs better-jive with your API-design sensibilities, great! Otherwise, [classical constructs](https://github.com/aws/constructs) are still state of the art.
 
 ---
 
 ## Resources
 
-- [Video Tutorial (in progress) &rarr;](#)<br />A friendly end-to-end introduction on YouTube
+<!-- - [Video Tutorial &rarr;](#)<br />A friendly end-to-end introduction on YouTube -->
+
 - [Guide &rarr;](docs/guide.md)<br /> An explanation of the mechanics
 - [Example &rarr;](example)<br />An example API for your viewing pleasure
 
@@ -28,11 +29,12 @@ npm install concise-constructs
 import {C} from "concise-constructs";
 import * as cdk from "@aws-cdk/core";
 import * as lambda from "@aws-cdk/aws-lambda";
+import path from "path";
 
 const Stack = C(cdk.Stack, (define) => ({
-  fn: define`fn`(lambda.Function, {
-    code: new lambda.InlineCode(`...`),
-    handler: "handler",
+  fn: define`my-fn`(lambda.Function, {
+    code: new lambda.AssetCode(path.resolve(__dirname, "lambda")),
+    handler: "index.handler",
     runtime: lambda.Runtime.NODEJS_12_X,
   }),
 }));
@@ -56,9 +58,9 @@ class Stack extends cdk.Stack {
   constructor(scope: cdk.App, id: string) {
     super(scope, id);
 
-    this.fn = new lambda.Function(this, "fn", {
-      code: new lambda.InlineCode(`...`),
-      handler: "handler",
+    this.fn = new lambda.Function(this, "my-fn", {
+      code: new lambda.AssetCode(path.resolve(__dirname, "lambda")),
+      handler: "index.handler",
       runtime: lambda.Runtime.NODEJS_12_X,
     });
   }
