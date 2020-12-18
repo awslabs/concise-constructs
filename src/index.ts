@@ -4,7 +4,8 @@ import * as u from "./util";
 
 export function C<
   BaseCtor extends Ctor,
-  Produce extends (define: Define<InstanceType<BaseCtor>>, props: any) => u.AnyRecOr.Void,
+  BaseInstance extends InstanceType<BaseCtor>,
+  Produce extends (define: Define<BaseInstance>, props: any) => u.AnyRecOr.Void,
   Props extends Parameters<Produce>[1],
   AdditionalMembers extends ReturnType<Produce>
 >(BaseCtor: BaseCtor, produce: Produce, ...[basePropsOrMapper]: u.InRest.BasePropsOrMapper<Props, Ctor.Props<BaseCtor>>) {
@@ -23,6 +24,6 @@ export function C<
     Ctor.IsRoot<BaseCtor> extends true
       ? u.InRest.Props<Props>
       : [scope: ConstructorParameters<BaseCtor>[0], id: string, ...rest: u.InRest.Props<Props>],
-    AdditionalMembers extends void ? InstanceType<BaseCtor> : InstanceType<BaseCtor> & AdditionalMembers
+    AdditionalMembers extends void ? BaseInstance : BaseInstance & AdditionalMembers
   >;
 }
