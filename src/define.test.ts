@@ -1,6 +1,6 @@
 import {assert, IsExact} from "conditional-type-checks";
-import * as cdk from "@aws-cdk/core";
 import {Define} from "./define";
+import * as cdk from "@aws-cdk/core";
 import * as lambda from "@aws-cdk/aws-lambda";
 
 const stackScope = new cdk.Stack();

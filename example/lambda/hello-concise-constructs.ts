@@ -1,5 +1,5 @@
-import aws from "aws-sdk";
 import {Handler} from "aws-lambda";
+import aws from "aws-sdk";
 
 export const handler: Handler = async (event) => {
   console.log("lambda start...");

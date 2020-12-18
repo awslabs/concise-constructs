@@ -1,6 +1,6 @@
 import {assert, IsExact} from "conditional-type-checks";
-import type * as cdk from "@aws-cdk/core";
 import {Ctor} from "./ctor";
+import type * as cdk from "@aws-cdk/core";
 
 describe("Ctor", () => {
   it("IsRoot Type", () => {

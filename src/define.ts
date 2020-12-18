@@ -1,6 +1,6 @@
 import {Construct} from "constructs";
-import * as u from "./util";
 import {Ctor} from "./ctor";
+import * as u from "./util";
 
 export interface Define<Scope extends Construct> {
   (quasis: TemplateStringsArray, ...rest: string[]): <Ctor extends Ctor.Child.Make<Scope, any, Construct>>(
