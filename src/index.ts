@@ -8,8 +8,17 @@ export function C<
   Produce extends (define: Define<BaseInstance>, props: any) => u.AnyRecOr.Void,
   Props extends Parameters<Produce>[1],
   AdditionalMembers extends ReturnType<Produce>
->(BaseCtor: BaseCtor, produce: Produce, ...[basePropsOrMapper]: u.InRest.BasePropsOrMapper<Props, Ctor.Props<BaseCtor>>) {
-  return (class extends BaseCtor {
+>(
+  BaseCtor: BaseCtor,
+  produce: Produce,
+  ...[basePropsOrMapper]: u.InRest.BasePropsOrMapper<Props, Ctor.Props<BaseCtor>>
+): Ctor.Make<
+  Ctor.IsRoot<BaseCtor> extends true
+    ? u.InRest.Props<Props>
+    : [scope: ConstructorParameters<BaseCtor>[0], id: string, ...rest: u.InRest.Props<Props>],
+  AdditionalMembers extends void ? BaseInstance : BaseInstance & AdditionalMembers
+> {
+  return class extends BaseCtor {
     constructor(...[parentOrProps, idOrUndef, propsOrUndef]: any[]) {
       const props = propsOrUndef || parentOrProps;
       const propsForSuper = typeof basePropsOrMapper === "function" ? (basePropsOrMapper as any)(props) : props;
@@ -20,10 +29,5 @@ export function C<
         Object.assign(this, produced);
       }
     }
-  } as unknown) as Ctor.Make<
-    Ctor.IsRoot<BaseCtor> extends true
-      ? u.InRest.Props<Props>
-      : [scope: ConstructorParameters<BaseCtor>[0], id: string, ...rest: u.InRest.Props<Props>],
-    AdditionalMembers extends void ? BaseInstance : BaseInstance & AdditionalMembers
-  >;
+  } as any;
 }

@@ -10,7 +10,7 @@ export interface Define<Scope extends Construct> {
   scope: Scope;
 }
 
-export function Define<Scope extends Construct>(scope: Scope) {
+export function Define<Scope extends Construct>(scope: Scope): Define<Scope> {
   const define: Define<Scope> = (quasis, ...rest) => {
     const id = u.recombineTaggedTemplateArgs(quasis, ...rest);
 
