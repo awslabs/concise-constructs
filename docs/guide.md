@@ -20,7 +20,7 @@ const stack = new Stack(app, "my-stack");
 stack.hi; // "Sam"
 ```
 
-To reiterate: calling `C` gives us a new construct constructor––extending the supplied base (arg 0)––which contains its 2nd-argument-returned data as members of any instance.
+To reiterate: calling `C` gives us a construct constructor, extending the supplied base (arg 0). The resulting constructor contains producer(arg 1)-returned data as members of any instance.
 
 This new constructor can be used by classical constructs. Aka., concise constructs are 1st class citizens! Users can mix and match as they please.
 
@@ -55,9 +55,9 @@ class E extends D {
 const stack = new E(undefined, "root", {name: "Elad"});
 ```
 
-Note how we can extend the `C`-produced constructor (as seen by `D`), as to define another class constructor.
+Note how we can extend the `C`-returned constructor (as seen by `D`), as to define another constructor.
 
-To define custom props on the resulting construct constructor, we add a second parameter to the init function:
+To define custom props on the resulting constructor, we add a second parameter to the init function:
 
 ```ts
 interface MyProps {
@@ -89,7 +89,7 @@ interface MyProps {
 const stack = new Stack(scope, "my-id", {hello: "world"});
 ```
 
-To correctly handle calls to super, one can supply a third argument to `C`: a mapping function, (in this case, an identity) which accepts the producer function's props and returns the inherited construct constructor's props.
+To correctly handle calls to super, one can supply a third argument to `C`: a mapping function, (in this case, an identity) which accepts the producer function's props and returns the inherited constructor's props.
 
 ```ts
 const Stack = C(
@@ -101,7 +101,7 @@ const Stack = C(
 );
 ```
 
-Within the init closure, we have access to a define function / callable object. We can use it to instantiate constructs without supplying scope.
+Within the closure of arg 1, we have access to `define`, a callable object. We can use it to instantiate constructs without supplying scope.
 
 ```ts
 import * as cdk from "@aws-cdk/core";
