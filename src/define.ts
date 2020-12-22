@@ -11,7 +11,7 @@ export interface Define<Scope extends Construct> {
     ...rest: u.InRest.Props<Ctor.Props<Ctor>, false>
   ) => InstanceType<Ctor>;
   /**
-   * The raw parent instance (a subclass of `Construct`).
+   * The parent `Construct` instance.
    */
   scope: Scope;
 }
