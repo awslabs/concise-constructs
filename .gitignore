@@ -8,6 +8,7 @@
 !CONTRIBUTING.md
 !docs
 examples/cdk.out
+examples/*/outputs.json
 examples/*/lambda/dist
 !examples
 !LICENSE

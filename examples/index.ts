@@ -1,4 +1,6 @@
 import cp from "child_process";
+import fs from "fs";
+import path from "path";
 
 const command = process.argv.pop();
 if (!command) {
@@ -13,6 +15,7 @@ if (!app) {
 const execSyncOptions: cp.ExecSyncOptions = {cwd: __dirname, stdio: "inherit"};
 
 if (
+  fs.existsSync(path.resolve(__dirname, app, "lambda")) &&
   ({
     deploy: true,
     diff: true,
@@ -37,4 +40,4 @@ if (
   );
 }
 
-cp.execSync(`cdk ${command} --app 'ts-node ./${app}'`, execSyncOptions);
+cp.execSync(["cdk", command, `--app 'ts-node ./${app}'`, `--outputs-file ./${app}/outputs.json`].join(" "), execSyncOptions);
