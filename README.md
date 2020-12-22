@@ -4,6 +4,8 @@
 
 **A utility for defining constructs without ever thinking about scope.** "Concise" constructs are interoperable with classical constructs. The difference is cosmetic; if concise constructs better-jive with your API-design sensibilities, great! Otherwise, [classical constructs](https://github.com/aws/constructs) are still state of the art.
 
+> NOTE: [JSII](https://github.com/aws/jsii) cannot yet package concise constructs for consumption in non-TypeScript CDK projects.
+
 ---
 
 ## Resources
