@@ -14,7 +14,6 @@ const Stack = C(cdk.Stack, (def, environment?: Record<string, string>) => {
     environment,
   });
 
-  // define an API, with the handler from above
   def`api`(apigw.LambdaRestApi, {handler});
 });
 
