@@ -8,12 +8,13 @@ import path from "path";
 const code = new lambda.AssetCode(path.resolve(__dirname, "lambda-dist"));
 
 // define the `Stack`
-const Stack = C(cdk.Stack, (def) => {
+const Stack = C(cdk.Stack, (def, environment?: Record<string, string>) => {
   // define a handler, which will use the `helloConciseConstructsHandler` export
   const handler = def`handler`(lambda.Function, {
     code,
     handler: "index.helloConciseConstructsHandler",
     runtime: lambda.Runtime.NODEJS_12_X,
+    environment,
   });
 
   // define an API, with the handler from above
@@ -22,7 +23,7 @@ const Stack = C(cdk.Stack, (def) => {
 
 // define the `App`
 const App = C(cdk.App, (def) => {
-  def`stack`(Stack);
+  def`stack`(Stack, {SOME_ENV_VAR: "Lorem ipsum dolor!"});
 });
 
 // synthesize to the file system (to-be deployed!)
