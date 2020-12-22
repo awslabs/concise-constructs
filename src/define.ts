@@ -2,11 +2,17 @@ import {Construct} from "constructs";
 import {Ctor} from "./ctor";
 import * as u from "./util";
 
+/**
+ * A callable object, used to define construct instances within the context of `C` scope.
+ */
 export interface Define<Scope extends Construct> {
   (quasis: TemplateStringsArray, ...rest: string[]): <Ctor extends Ctor.Child.Make<Scope, any, Construct>>(
     Ctor: Ctor,
     ...rest: u.InRest.Props<Ctor.Props<Ctor>, false>
   ) => InstanceType<Ctor>;
+  /**
+   * The raw parent instance (a subclass of `Construct`).
+   */
   scope: Scope;
 }
 

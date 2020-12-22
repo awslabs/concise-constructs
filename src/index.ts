@@ -2,6 +2,14 @@ import {Ctor} from "./ctor";
 import {Define} from "./define";
 import * as u from "./util";
 
+/**
+ * @param BaseCtor The base constructor from which your construct's constructor should extend.
+ * @param produce A function which utilizes its exposed `Define` to instantiate constructs and return to-be
+ * members for the "produced" constructor.
+ * @param basePropsOrMapper In cases where the base construct accepts props, this argument can be a mapping
+ * function from `Parameters<Produce>[1]` to the base constructor's props. This argument cannot be supplied
+ * should the base constructor not accept props.
+ */
 export function C<
   BaseCtor extends Ctor,
   BaseInstance extends InstanceType<BaseCtor>,
