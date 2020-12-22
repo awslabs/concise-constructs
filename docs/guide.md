@@ -2,7 +2,7 @@
 import {C} from "concise-constructs";
 ```
 
-The `C` utility lets us make new construct constructors with less boilerplate. The base constructor––from which you'd typically extend––is the first argument to `C`. The second argument is an producer function, from which we can optionally return data to be used as members of the `C`-returned constructor's instances.
+The `C` utility lets us make new construct constructors with less boilerplate. The base constructor––from which you'd typically extend––is the first argument to `C`. The second argument is a producer function, from which we can optionally return data to be used as members of the `C`-returned constructor's instances.
 
 ```ts
 import * as cdk from "@aws-cdk/core";
