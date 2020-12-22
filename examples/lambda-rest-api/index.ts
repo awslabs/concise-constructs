@@ -1,11 +1,11 @@
-import {C} from "../src";
+import {C} from "../../src";
 import * as apigw from "@aws-cdk/aws-apigateway";
 import * as cdk from "@aws-cdk/core";
 import * as lambda from "@aws-cdk/aws-lambda";
 import path from "path";
 
 // create the `AssetCode` instance for later use in any Lambda function(s)
-const code = new lambda.AssetCode(path.resolve(__dirname, "lambda-dist"));
+const code = new lambda.AssetCode(path.resolve(__dirname, "lambda", "dist"));
 
 // define the `Stack`
 const Stack = C(cdk.Stack, (def, environment?: Record<string, string>) => {

@@ -7,8 +7,9 @@
 !CODE_OF_CONDUCT.md
 !CONTRIBUTING.md
 !docs
-example/lambda-dist
-!example
+examples/cdk.out
+examples/*/lambda/dist
+!examples
 !LICENSE
 !NOTICE
 !package.json

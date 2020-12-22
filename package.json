@@ -81,9 +81,6 @@
     "build": "tsc -P tsconfig.build.json",
     "release": "standard-version",
     "release-next": "npm run release -- --prerelease next",
-    "example": "func() { cdk ${1} --app 'ts-node example';}; func",
-    "predeploy-example": "rm -rf example/lambda-dist && esbuild ./example/lambda --bundle --format=cjs --sourcemap=inline --target=node12.2 --external:aws-sdk --outfile=example/lambda-dist/index.js",
-    "deploy-example": "npm run example deploy",
-    "destroy-example": "npm run example destroy"
+    "example": "ts-node examples"
   }
 }
