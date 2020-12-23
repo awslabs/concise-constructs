@@ -42,7 +42,7 @@ const Stack = C(cdk.Stack, (define) => ({
 }));
 
 const App = C(cdk.App, (define) => {
-  define`stack`(Stack);
+  define`my-stack`(Stack);
 });
 
 new App().synth();
@@ -73,7 +73,7 @@ class App extends cdk.App {
   constructor() {
     super();
 
-    new Stack(this, "stack");
+    new Stack(this, "my-stack");
   }
 }
 
