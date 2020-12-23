@@ -1,4 +1,4 @@
-import {AnyRecOr} from "./molecules";
+import {AnyRec} from "./molecules";
 
 export namespace InRest {
   export type Props<Props, EmptyIfUndef extends boolean = true> = Props extends undefined
@@ -7,7 +7,7 @@ export namespace InRest {
     ? [props?: Props]
     : [props: Props];
 
-  export type BasePropsOrMapper<P extends AnyRecOr.Undef, B extends AnyRecOr.Undef> = B extends undefined
+  export type BasePropsOrMapper<P extends AnyRec.Or.Undef, B extends AnyRec.Or.Undef> = B extends undefined
     ? []
     : undefined extends B
     ? P extends undefined

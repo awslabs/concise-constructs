@@ -13,7 +13,7 @@ import * as u from "./util";
 export function C<
   BaseCtor extends Ctor,
   BaseInstance extends InstanceType<BaseCtor>,
-  Produce extends (define: Define<BaseInstance>, props: any) => u.AnyRecOr.Void,
+  Produce extends (define: Define<BaseInstance>, props: any) => (Partial<BaseInstance> & u.AnyRec) | void,
   Props extends Parameters<Produce>[1],
   AdditionalMembers extends ReturnType<Produce>
 >(
@@ -33,9 +33,7 @@ export function C<
       super(...(idOrUndef ? [parentOrProps, idOrUndef, propsForSuper] : [propsForSuper]));
       const define = Define(this as any);
       const produced = produce(define, props);
-      if (produced) {
-        Object.assign(this, produced);
-      }
+      produced && Object.assign(this, produced);
     }
   } as any;
 }
