@@ -7,7 +7,7 @@
 !CODE_OF_CONDUCT.md
 !CONTRIBUTING.md
 !docs
-examples/cdk.out
+examples/*/cdk.out
 examples/*/outputs.json
 examples/*/lambda/dist
 !examples

@@ -29,14 +29,16 @@
     "constructs": "^3.2.47"
   },
   "devDependencies": {
-    "@aws-cdk/aws-apigateway": "^1.75.0",
-    "@aws-cdk/aws-lambda": "^1.75.0",
+    "@aws-cdk/aws-apigateway": "^1.80.0",
+    "@aws-cdk/aws-apigatewayv2": "^1.80.0",
+    "@aws-cdk/aws-appsync": "^1.80.0",
+    "@aws-cdk/aws-lambda": "^1.80.0",
     "@aws-cdk/aws-s3": "^1.80.0",
-    "@aws-cdk/core": "^1.75.0",
+    "@aws-cdk/core": "^1.80.0",
     "@types/aws-lambda": "^8.10.64",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.7",
-    "aws-cdk": "^1.75.0",
+    "aws-cdk": "^1.80.0",
     "aws-sdk": "^2.813.0",
     "conditional-type-checks": "^1.0.5",
     "esbuild": "^0.8.23",
@@ -75,7 +77,7 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf cdk.out cjs example/lambda/dist node_modules",
+    "clean": "rm -rf cdk.out cjs example/*/lambda/dist example/*/outputs.json node_modules",
     "format": "prettier --write . --ignore=node_modules --loglevel=error",
     "test": "jest",
     "build": "tsc -P tsconfig.build.json",

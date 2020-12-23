@@ -1,7 +1,7 @@
-import {Handler} from "aws-lambda";
+import {APIGatewayProxyHandler} from "aws-lambda";
 import aws from "aws-sdk";
 
-export const handler: Handler = async (event) => {
+export const handler: APIGatewayProxyHandler = async (event) => {
   console.log("lambda start...");
   console.log(process.env.SOME_ENV_VAR);
   console.log("request:", JSON.stringify(event, undefined, 2));

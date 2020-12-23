@@ -12,10 +12,11 @@ if (!app) {
   throw new Error(`Must specify one of the example directory names.`);
 }
 
-const execSyncOptions: cp.ExecSyncOptions = {cwd: __dirname, stdio: "inherit"};
+const appPath = path.resolve(__dirname, app);
+const execSyncOptions: cp.ExecSyncOptions = {cwd: appPath, stdio: "inherit"};
 
 if (
-  fs.existsSync(path.resolve(__dirname, app, "lambda")) &&
+  fs.existsSync(path.resolve(appPath, "lambda")) &&
   ({
     deploy: true,
     diff: true,
@@ -24,11 +25,11 @@ if (
 ) {
   cp.execSync(
     [
-      `rm -rf ./${app}/lambda/dist`,
+      `rm -rf ./lambda/dist`,
       [
         "esbuild",
-        `./${app}/lambda`,
-        `--outfile=./${app}/lambda/dist/index.js`,
+        `./lambda`,
+        `--outfile=./lambda/dist/index.js`,
         "--format=cjs",
         "--target=node12.2",
         "--bundle",
@@ -40,4 +41,4 @@ if (
   );
 }
 
-cp.execSync(["cdk", command, `--app 'ts-node ./${app}'`, `--outputs-file ./${app}/outputs.json`].join(" "), execSyncOptions);
+cp.execSync(["cdk", command, `--app 'ts-node .'`, `--outputs-file ./outputs.json`].join(" "), execSyncOptions);
