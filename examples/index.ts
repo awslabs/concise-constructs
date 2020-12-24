@@ -19,6 +19,7 @@ if (
   fs.existsSync(path.resolve(appPath, "lambda")) &&
   ({
     deploy: true,
+    destroy: true,
     diff: true,
     synth: true,
   } as Record<string, true>)[command]
