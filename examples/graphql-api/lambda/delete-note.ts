@@ -1,5 +1,5 @@
 import {AppSyncResolverHandler} from "aws-lambda";
-import {db, TableName} from "./util";
+import {db, TableName} from "./common";
 import * as t from "./generated-types";
 
 export const handler: AppSyncResolverHandler<t.MutationDeleteNoteArgs, t.Mutation["deleteNote"]> = async ({arguments: {id}}) => {
