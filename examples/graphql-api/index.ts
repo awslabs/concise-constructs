@@ -1,14 +1,48 @@
 // TODO
 import {C} from "../../src";
-import * as s3 from "@aws-cdk/aws-s3";
+import * as appsync from "@aws-cdk/aws-appsync";
 import * as cdk from "@aws-cdk/core";
+import * as ddb from "@aws-cdk/aws-dynamodb";
+import * as lambda from "@aws-cdk/aws-lambda";
+import path from "path";
+
+const codePath = path.resolve(__dirname, "lambda", "dist");
+const code = new lambda.AssetCode(codePath);
 
 const Stack = C(cdk.Stack, (def) => {
-  const bucket = def`bucket`(s3.Bucket);
+  const api = def`api`(appsync.GraphqlApi, {
+    name: "api",
+    schema: appsync.Schema.fromAsset("schema.gql"),
+    xrayEnabled: true,
+  });
 
-  def`bucketArn`(cdk.CfnOutput, {
-    exportName: "bucketArn",
-    value: bucket.bucketArn,
+  def`graphqlUrl`(cdk.CfnOutput, {exportName: "graphqlUrl", value: api.graphqlUrl!});
+  def`apiKey`(cdk.CfnOutput, {exportName: "apiKey", value: api.apiKey!});
+
+  const db = def`db`(ddb.Table, {
+    billingMode: ddb.BillingMode.PAY_PER_REQUEST,
+    partitionKey: {
+      name: "id",
+      type: ddb.AttributeType.STRING,
+    },
+  });
+
+  ([
+    {typeName: "Query", fieldName: "note"},
+    {typeName: "Query", fieldName: "notes"},
+    {typeName: "Mutation", fieldName: "createNote"},
+    {typeName: "Mutation", fieldName: "deleteNote"},
+  ] as appsync.BaseResolverProps[]).forEach((p) => {
+    const handler = def`${p.fieldName}Handler`(lambda.Function, {
+      code,
+      environment: {TABLE_NAME: db.tableName},
+      handler: `index.${p.fieldName}Handler`,
+      runtime: lambda.Runtime.NODEJS_12_X,
+    });
+
+    db.grantFullAccess(handler);
+
+    api.addLambdaDataSource(`${p.fieldName}DataSource`, handler).createResolver(p);
   });
 });
 
