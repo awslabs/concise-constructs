@@ -1,4 +1,3 @@
-// TODO
 import {C} from "../../src";
 import * as appsync from "@aws-cdk/aws-appsync";
 import * as cdk from "@aws-cdk/core";
