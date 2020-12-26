@@ -6,8 +6,7 @@ import * as ddb from "@aws-cdk/aws-dynamodb";
 import * as lambda from "@aws-cdk/aws-lambda";
 import path from "path";
 
-const codePath = path.resolve(__dirname, "lambda", "dist");
-const code = new lambda.AssetCode(codePath);
+const code = new lambda.AssetCode(path.resolve(__dirname, "lambda", "dist"));
 
 const Stack = C(cdk.Stack, (def) => {
   const api = def`api`(appsync.GraphqlApi, {
