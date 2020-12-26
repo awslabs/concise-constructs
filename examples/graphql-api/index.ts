@@ -26,22 +26,22 @@ const Stack = C(cdk.Stack, (def) => {
     },
   });
 
-  ([
-    {typeName: "Query", fieldName: "note"},
-    {typeName: "Query", fieldName: "notes"},
-    {typeName: "Mutation", fieldName: "createNote"},
-    {typeName: "Mutation", fieldName: "deleteNote"},
-  ] as appsync.BaseResolverProps[]).forEach((p) => {
-    const handler = def`${p.fieldName}Handler`(lambda.Function, {
+  [
+    {typeName: "Query", fieldName: "note", access: "dynamodb:GetItem"},
+    {typeName: "Query", fieldName: "notes", access: "dynamodb:PutItem"},
+    {typeName: "Mutation", fieldName: "createNote", access: "dynamodb:Scan"},
+    {typeName: "Mutation", fieldName: "deleteNote", access: "dynamodb:DeleteItem"},
+  ].forEach(({access, ...props}) => {
+    const handler = def`${props.fieldName}Handler`(lambda.Function, {
       code,
       environment: {TABLE_NAME: db.tableName},
-      handler: `index.${p.fieldName}Handler`,
+      handler: `index.${props.fieldName}Handler`,
       runtime: lambda.Runtime.NODEJS_12_X,
     });
 
-    db.grantFullAccess(handler);
+    db.grant(handler, access);
 
-    api.addLambdaDataSource(`${p.fieldName}DataSource`, handler).createResolver(p);
+    api.addLambdaDataSource(`${props.fieldName}DataSource`, handler).createResolver(props);
   });
 });
 
