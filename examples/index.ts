@@ -15,31 +15,44 @@ if (!app) {
 const appPath = path.resolve(__dirname, app);
 const execSyncOptions: cp.ExecSyncOptions = {cwd: appPath, stdio: "inherit"};
 
-if (
-  fs.existsSync(path.resolve(appPath, "lambda")) &&
-  ({
-    deploy: true,
-    destroy: true,
-    diff: true,
-    synth: true,
-  } as Record<string, true>)[command]
-) {
-  cp.execSync(
-    [
-      `rm -rf ./lambda/dist`,
-      [
-        "esbuild",
-        `./lambda`,
-        `--outfile=./lambda/dist/index.js`,
-        "--format=cjs",
-        "--target=node12.2",
-        "--bundle",
-        "--sourcemap=inline",
-        "--external:aws-sdk",
-      ].join(" "),
-    ].join(" && "),
-    execSyncOptions,
-  );
+function gqlCodeGen() {
+  if (fs.existsSync(path.resolve(appPath, "codegen.yml"))) {
+    cp.execSync("graphql-codegen", execSyncOptions);
+  }
 }
 
-cp.execSync(["cdk", command, `--app 'ts-node .'`, `--outputs-file ./outputs.json`].join(" "), execSyncOptions);
+if (command === "gql-code-gen") {
+  gqlCodeGen();
+} else {
+  if (
+    ({
+      deploy: true,
+      destroy: true,
+      diff: true,
+      synth: true,
+    } as Record<string, true>)[command]
+  ) {
+    gqlCodeGen();
+
+    if (fs.existsSync(path.resolve(appPath, "lambda"))) {
+      cp.execSync(
+        [
+          `rm -rf ./lambda/dist`,
+          [
+            "esbuild",
+            `./lambda`,
+            `--outfile=./lambda/dist/index.js`,
+            "--format=cjs",
+            "--target=node12.2",
+            "--bundle",
+            "--sourcemap=inline",
+            "--external:aws-sdk",
+          ].join(" "),
+        ].join(" && "),
+        execSyncOptions,
+      );
+    }
+  }
+
+  cp.execSync(["cdk", command, `--app 'ts-node .'`, `--outputs-file ./outputs.json`].join(" "), execSyncOptions);
+}

@@ -10,6 +10,7 @@
 examples/*/cdk.out
 examples/*/outputs.json
 examples/*/lambda/dist
+examples/*/lambda/generated-resolver-types.ts
 !examples
 !LICENSE
 !NOTICE
