@@ -80,7 +80,7 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf cjs examples/*/{cdk.out,outputs.json,lambda/dist} node_modules",
+    "clean": "rm -rf cjs examples/*/{cdk.out,outputs.json,lambda/{dist,generated-types.ts}} node_modules",
     "format": "prettier --write . --ignore=node_modules --loglevel=error",
     "test": "jest",
     "build": "tsc -P tsconfig.build.json",
