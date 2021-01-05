@@ -13,7 +13,8 @@
 <!-- - [Video Tutorial &rarr;](#)<br />A friendly end-to-end introduction on YouTube -->
 
 - [Guide &rarr;](docs/guide.md)<br /> An explanation of the mechanics
-- [Example &rarr;](example)<br />An example API for your viewing pleasure
+- [Example &rarr;](examples/rest-api)<br />An example Rest API
+- [Example &rarr;](examples/graphql-api)<br />An example GraphQL API
 
 ## Installation
 
