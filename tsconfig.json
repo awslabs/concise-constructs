@@ -1,0 +1,8 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "cjs"
+  },
+  "extends": "./tsconfig.base.json",
+  "include": ["example", "src"]
+}
