@@ -109,7 +109,7 @@ import * as cdk from "@aws-cdk/core";
 import * as sqs from "@aws-cdk/aws-sqs";
 import * as sns from "@aws-cdk/aws-sns";
 
-export class HelloCdkStack extends cdk.Stack {
+class HelloCdkStack extends cdk.Stack {
   queue;
   topic;
 
