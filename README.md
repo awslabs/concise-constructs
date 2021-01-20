@@ -1,6 +1,6 @@
 # Concise Constructs
 
-[![npm version](https://img.shields.io/npm/v/style-dictionary.svg?style=flat-square)](https://badge.fury.io/js/style-dictionary) ![license](https://img.shields.io/npm/l/style-dictionary.svg?style=flat-square) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/amzn/style-dictionary/blob/master/CONTRIBUTING.md#submitting-pull-requests)
+[![npm version](https://img.shields.io/npm/v/concise-constructs.svg?style=flat-square)](https://badge.fury.io/js/concise-constructs) ![license](https://img.shields.io/npm/l/concise-constructs.svg?style=flat-square) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/awslabs/concise-constructs/blob/master/CONTRIBUTING.md#submitting-pull-requests)
 
 **A utility for defining constructs without ever needing to think about scope.** "Concise" constructs are interoperable with classical constructs. The difference is cosmetic; if concise constructs better-jive with your API-design sensibilities, great! Otherwise, [classical constructs](https://github.com/aws/constructs) are still state of the art.
 
