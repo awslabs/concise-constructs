@@ -81,6 +81,52 @@ class App extends cdk.App {
 new App().synth();
 ```
 
+## Another Snippet
+
+```ts
+import {C} from "concise-constructs";
+import * as cdk from "@aws-cdk/core";
+import * as sqs from "@aws-cdk/aws-sqs";
+import * as sns from "@aws-cdk/aws-sns";
+
+const Stack = C(cdk.Stack, (define) => {
+  const queue = define`HelloCdkQueue`(sqs.Queue, {
+    visibilityTimeout: cdk.Duration.seconds(300),
+  });
+
+  const topic = define`HelloCdkTopic`(sns.Topic);
+
+  topic.addSubscription(new subs.SqsSubscription(queue));
+
+  return {queue, topic};
+});
+```
+
+... is equivalent to the following.
+
+```ts
+import * as cdk from "@aws-cdk/core";
+import * as sqs from "@aws-cdk/aws-sqs";
+import * as sns from "@aws-cdk/aws-sns";
+
+export class HelloCdkStack extends cdk.Stack {
+  queue;
+  topic;
+
+  constructor(scope: cdk.App, id: string) {
+    super(scope, id, props);
+
+    this.queue = new sqs.Queue(this, "HelloCdkQueue", {
+      visibilityTimeout: cdk.Duration.seconds(300),
+    });
+
+    this.topic = new sns.Topic(this, "HelloCdkTopic");
+
+    topic.addSubscription(new subs.SqsSubscription(this.queue));
+  }
+}
+```
+
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
