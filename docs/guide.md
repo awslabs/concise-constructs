@@ -20,7 +20,7 @@ const stack = new Stack(app, "my-stack");
 stack.hi; // "Sam"
 ```
 
-To reiterate: calling `C` gives us a construct constructor, extending the supplied base (arg 0). The resulting constructor contains producer(arg 1)-returned data as members of any instance.
+To reiterate: calling `C` gives us a construct constructor, extending the supplied base (arg 0). The resulting constructor contains closure-returned data as members of any instance.
 
 This new constructor can be used by classical constructs. Aka., concise constructs are 1st class citizens! Users can mix and match as they please.
 
@@ -29,6 +29,7 @@ import {Construct} from "@aws-cdk/core";
 import {C} from "concise-constructs";
 
 const B = C(Construct, (define) => {
+  // we pass the construct ID via tags on `define`
   define`child`(Construct);
 });
 
@@ -101,7 +102,7 @@ const Stack = C(
 );
 ```
 
-Within the closure of arg 1, we have access to `define`, a callable object. We can use it to instantiate constructs without supplying scope.
+Within the closure of arg 1, we have access to `define`, a function. We can use this function to instantiate constructs without supplying scope.
 
 ```ts
 import * as cdk from "@aws-cdk/core";
@@ -119,16 +120,15 @@ const Stack = C(cdk.Stack, (define) => {
 
 The value returned from define is the instance of `lambda.Function`. Let's capture it in a variable, and ensure that it is a member of the resulting construct constructor:
 
-```diff
+```ts
 const Stack = C(cdk.Stack, (define) => {
-- define`handler`(lambda.Function, {
-+ const fn = define`handler`(lambda.Function, {
+  const fn = define`handler`(lambda.Function, {
     code: new lambda.InlineCode(`...`),
     handler: "handler",
     runtime: lambda.Runtime.NODEJS_12_X,
   });
 
-+ return { fn };
+  return {fn};
 });
 ```
 
