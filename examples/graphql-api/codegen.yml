@@ -1,8 +1,0 @@
-generates:
-  lambda/generated-types.ts:
-    schema: schema.gql
-    overwrite: true
-    plugins:
-      - typescript
-    config:
-      useIndexSignature: true
