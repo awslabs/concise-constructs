@@ -26,7 +26,7 @@ npm install concise-constructs
 
 > Packaged as [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1), alongside corresponding type definitions.
 
-## Snippet
+## Lambda Rest API Snippet
 
 ```ts
 import {C} from "concise-constructs";
@@ -81,7 +81,7 @@ class App extends cdk.App {
 new App().synth();
 ```
 
-## Another Snippet
+## SQS + SNS Snippet
 
 ```ts
 import {C} from "concise-constructs";
