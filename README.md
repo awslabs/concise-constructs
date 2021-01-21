@@ -100,6 +100,12 @@ const Stack = C(cdk.Stack, (define) => {
 
   return {queue, topic};
 });
+
+const App = C(cdk.App, (define) => {
+  const stack = define`my-stack`(Stack);
+  stack.queue; // sqs.Queue
+  stack.topic; // sns.Topic
+});
 ```
 
 ... is equivalent to the following.
@@ -125,9 +131,21 @@ class HelloCdkStack extends cdk.Stack {
     topic.addSubscription(new subs.SqsSubscription(this.queue));
   }
 }
+
+class App extends cdk.App {
+  constructor() {
+    super();
+
+    const stack = new Stack(this, "my-stack");
+    stack.queue; // sqs.Queue
+    stack.topic; // sns.Topic
+  }
+}
+
+new App().synth();
 ```
 
-## Security
+## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
 
