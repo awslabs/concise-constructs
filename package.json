@@ -85,6 +85,7 @@
     "format": "prettier --write . --ignore=node_modules --loglevel=error",
     "test": "jest",
     "build": "tsc -P tsconfig.build.json",
+    "watch": "tsc -P tsconfig.build.json --watch",
     "release": "standard-version",
     "release-next": "npm run release -- --prerelease next",
     "example": "ts-node examples"
