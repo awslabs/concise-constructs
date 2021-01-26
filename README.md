@@ -16,7 +16,7 @@
 - [Rest API Example &rarr;](examples/rest-api)<br />Using Lambda & API Gateway
 - [GraphQL API &rarr;](examples/graphql-api)<br />Using AppSync, Lambda Resolvers & DynamoDB
 
-> To execute an example, run `npm run example [example-dir] [command]`
+> To execute an example, run `npm run example [example-dir] [command]` (for example, `npm run example graphql-api deploy`)
 
 ## Installation
 
