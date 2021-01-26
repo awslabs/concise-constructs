@@ -49,7 +49,8 @@ const App = C(cdk.App, (define) => {
 new App().synth();
 ```
 
-... is equivalent to the following.
+<details closed>
+<summary>... is equivalent to the following.</summary>
 
 ```ts
 import * as cdk from "@aws-cdk/core";
@@ -81,6 +82,8 @@ class App extends cdk.App {
 new App().synth();
 ```
 
+</details>
+
 ## SQS + SNS Snippet
 
 ```ts
@@ -108,7 +111,8 @@ const App = C(cdk.App, (define) => {
 });
 ```
 
-... is equivalent to the following.
+<details closed>
+<summary>... is equivalent to the following.</summary>
 
 ```ts
 import * as cdk from "@aws-cdk/core";
@@ -144,6 +148,8 @@ class App extends cdk.App {
 
 new App().synth();
 ```
+
+</details>
 
 ## Contributing
 
