@@ -1,4 +1,5 @@
 import {Construct} from "constructs";
+import type * as cdk from "@aws-cdk/core";
 
 export namespace Ctor {
   type Self = Ctor;
@@ -28,7 +29,9 @@ export namespace Ctor {
       : false
     : Ctor extends Root
     ? true
-    : never;
+    : InstanceType<Ctor> extends cdk.App
+    ? true
+    : false;
 
   export type Props<Ctor extends Self> = IsRoot<Ctor> extends true ? Root.Props<Ctor> : Child.Props<Ctor>;
 }
