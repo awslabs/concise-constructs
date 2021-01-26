@@ -26,7 +26,9 @@ npm install concise-constructs
 
 > Packaged as [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1), alongside corresponding type definitions.
 
-## Lambda Rest API Snippet
+## Snippets
+
+### Lambda Rest API
 
 ```ts
 import {C} from "concise-constructs";
@@ -84,7 +86,7 @@ new App().synth();
 
 </details>
 
-## SQS + SNS Snippet
+### SQS + SNS
 
 ```ts
 import {C} from "concise-constructs";
@@ -143,6 +145,84 @@ class App extends cdk.App {
     const stack = new Stack(this, "my-stack");
     stack.queue; // sqs.Queue
     stack.topic; // sns.Topic
+  }
+}
+
+new App().synth();
+```
+
+</details>
+
+### Lambda CRON
+
+```ts
+import {C} from "concise-constructs";
+import * as cdk from "@aws-cdk/core";
+import * as events from "@aws-cdk/aws-events";
+import * as lambda from "@aws-cdk/aws-lambda";
+import * as targets from "@aws-cdk/aws-event-targets";
+
+const Stack = C(cdk.Stack, (define) => {
+  const codePath = path.resolve(__dirname, "lambda-handler.ts");
+  const codeSrc = fs.readFileSync(codePath, {encoding: "utf-8"});
+  const code = new lambda.InlineCode(code);
+
+  const lambdaFn = define`singleton`(lambda.Function, {
+    code,
+    handler: "index.main",
+    timeout: cdk.Duration.seconds(300),
+    runtime: lambda.Runtime.PYTHON_3_6,
+  });
+
+  const rule = def`rule`(events.Rule, {
+    schedule: events.Schedule.expression("cron(0 18 ? * MON-FRI *)"),
+  });
+
+  rule.addTarget(new targets.LambdaFunction(lambdaFn));
+});
+
+const App = C(cdk.App, (define) => {
+  const stack = define`my-stack`(Stack);
+});
+
+new App().synth();
+```
+
+<details closed>
+<summary>... is equivalent to the following.</summary>
+
+```ts
+import * as cdk from "@aws-cdk/core";
+import * as events from "@aws-cdk/aws-events";
+import * as lambda from "@aws-cdk/aws-lambda";
+import * as targets from "@aws-cdk/aws-event-targets";
+
+class Stack extends cdk.Stack {
+  constructor(scope: cdk.App, id: string) {
+    super(scope, id);
+
+    const codePath = path.resolve(__dirname, "lambda-handler.ts");
+    const codeSrc = fs.readFileSync(codePath, {encoding: "utf-8"});
+    const code = new lambda.InlineCode(code);
+
+    const lambdaFn = new lambda.Function(this, "singleton", {
+      code,
+      handler: "index.main",
+      timeout: cdk.Duration.seconds(300),
+      runtime: lambda.Runtime.PYTHON_3_6,
+    });
+
+    const rule = new events.Rule(this, "rule", {
+      schedule: events.Schedule.expression("cron(0 18 ? * MON-FRI *)"),
+    });
+
+    rule.addTarget(new targets.LambdaFunction(lambdaFn));
+  }
+}
+
+class App extends cdk.App {
+  constructor() {
+    new Stack(this, "my-stack");
   }
 }
 
