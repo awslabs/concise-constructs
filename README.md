@@ -16,6 +16,8 @@
 - [Rest API Example &rarr;](examples/rest-api)<br />Using Lambda & API Gateway
 - [GraphQL API &rarr;](examples/graphql-api)<br />Using AppSync, Lambda Resolvers & DynamoDB
 
+> To execute an example, run `npm run example [example-dir] [command]`
+
 ## Installation
 
 **Node** users can install with [npm](https://www.npmjs.com/package/concise-constructs).
@@ -171,7 +173,7 @@ const code = new lambda.AssetCode(path.resolve(__dirname, "lambda"));
 const Stack = C(cdk.Stack, (define) => {
   const lambdaFn = define`singleton`(lambda.Function, {
     code,
-    handler: "index.main",
+    handler: "index.handler",
     timeout: cdk.Duration.seconds(300),
     runtime: lambda.Runtime.PYTHON_3_6,
   });
@@ -207,7 +209,7 @@ class Stack extends cdk.Stack {
 
     const lambdaFn = new lambda.Function(this, "singleton", {
       code,
-      handler: "index.main",
+      handler: "index.handler",
       timeout: cdk.Duration.seconds(300),
       runtime: lambda.Runtime.PYTHON_3_6,
     });
