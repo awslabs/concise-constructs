@@ -7,5 +7,6 @@ describe("Ctor", () => {
     expect.assertions(0);
     assert<IsExact<Ctor.IsRoot<typeof cdk.App>, true>>(true);
     assert<IsExact<Ctor.IsRoot<typeof cdk.Stack>, false>>(true);
+    assert<IsExact<Ctor.IsRoot<typeof cdk.Construct>, false>>(true);
   });
 });
