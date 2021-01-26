@@ -27,6 +27,7 @@
     "kit"
   ],
   "dependencies": {
+    "@aws-cdk/core": "^1.86.0",
     "constructs": "^3.2.116"
   },
   "devDependencies": {
@@ -34,7 +35,6 @@
     "@aws-cdk/aws-appsync": "^1.86.0",
     "@aws-cdk/aws-lambda": "^1.86.0",
     "@aws-cdk/aws-s3": "^1.86.0",
-    "@aws-cdk/core": "^1.86.0",
     "@graphql-codegen/cli": "^1.20.1",
     "@graphql-codegen/typescript": "^1.20.2",
     "@types/aws-lambda": "^8.10.71",
