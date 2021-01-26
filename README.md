@@ -36,9 +36,11 @@ import * as cdk from "@aws-cdk/core";
 import * as lambda from "@aws-cdk/aws-lambda";
 import path from "path";
 
+const code = new lambda.AssetCode(path.resolve(__dirname, "lambda"));
+
 const Stack = C(cdk.Stack, (define) => ({
   fn: define`my-fn`(lambda.Function, {
-    code: new lambda.AssetCode(path.resolve(__dirname, "lambda")),
+    code,
     handler: "index.handler",
     runtime: lambda.Runtime.NODEJS_12_X,
   }),
@@ -59,6 +61,8 @@ import * as cdk from "@aws-cdk/core";
 import * as lambda from "@aws-cdk/aws-lambda";
 import path from "path";
 
+const code = new lambda.AssetCode(path.resolve(__dirname, "lambda"));
+
 class Stack extends cdk.Stack {
   fn;
 
@@ -66,7 +70,7 @@ class Stack extends cdk.Stack {
     super(scope, id);
 
     this.fn = new lambda.Function(this, "my-fn", {
-      code: new lambda.AssetCode(path.resolve(__dirname, "lambda")),
+      code,
       handler: "index.handler",
       runtime: lambda.Runtime.NODEJS_12_X,
     });
@@ -162,11 +166,9 @@ import * as events from "@aws-cdk/aws-events";
 import * as lambda from "@aws-cdk/aws-lambda";
 import * as targets from "@aws-cdk/aws-event-targets";
 
-const Stack = C(cdk.Stack, (define) => {
-  const codePath = path.resolve(__dirname, "lambda-handler.ts");
-  const codeSrc = fs.readFileSync(codePath, {encoding: "utf-8"});
-  const code = new lambda.InlineCode(code);
+const code = new lambda.AssetCode(path.resolve(__dirname, "lambda"));
 
+const Stack = C(cdk.Stack, (define) => {
   const lambdaFn = define`singleton`(lambda.Function, {
     code,
     handler: "index.main",
@@ -197,13 +199,11 @@ import * as events from "@aws-cdk/aws-events";
 import * as lambda from "@aws-cdk/aws-lambda";
 import * as targets from "@aws-cdk/aws-event-targets";
 
+const code = new lambda.AssetCode(path.resolve(__dirname, "lambda"));
+
 class Stack extends cdk.Stack {
   constructor(scope: cdk.App, id: string) {
     super(scope, id);
-
-    const codePath = path.resolve(__dirname, "lambda-handler.ts");
-    const codeSrc = fs.readFileSync(codePath, {encoding: "utf-8"});
-    const code = new lambda.InlineCode(code);
 
     const lambdaFn = new lambda.Function(this, "singleton", {
       code,
