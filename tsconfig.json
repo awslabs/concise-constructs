@@ -1,8 +1,6 @@
 {
   "compileOnSave": true,
-  "compilerOptions": {
-    "outDir": "cjs"
-  },
+  "exclude": ["node_modules"],
   "extends": "./tsconfig.base.json",
   "include": ["example", "src"]
 }
