@@ -1,4 +1,6 @@
+import {buildSync} from "esbuild";
 import cp from "child_process";
+import del from "del";
 import fs from "fs";
 import path from "path";
 
@@ -35,22 +37,18 @@ if (command === "gql-code-gen") {
     gqlCodeGen();
 
     if (fs.existsSync(path.resolve(appPath, "lambda"))) {
-      cp.execSync(
-        [
-          `rm -rf ./lambda/dist`,
-          [
-            "esbuild",
-            `./lambda`,
-            `--outfile=./lambda/dist/index.js`,
-            "--format=cjs",
-            "--target=node12.2",
-            "--bundle",
-            "--sourcemap=inline",
-            "--external:aws-sdk",
-          ].join(" "),
-        ].join(" && "),
-        execSyncOptions,
-      );
+      del.sync(path.join(appPath, "lambda", "dist"));
+      const lambdaPath = path.join(appPath, "lambda");
+      buildSync({
+        minify: true,
+        entryPoints: [path.join(lambdaPath, "index.ts")],
+        bundle: true,
+        external: ["aws-sdk"],
+        format: "cjs",
+        outfile: path.join(lambdaPath, "dist", "index.js"),
+        sourcemap: "inline",
+        target: "node12.2",
+      });
     }
   }
 
