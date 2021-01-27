@@ -27,6 +27,5 @@
     "target": "ES2018",
     "typeRoots": ["node_modules/@types"],
     "useDefineForClassFields": true
-  },
-  "exclude": ["node_modules"]
+  }
 }
