@@ -180,7 +180,7 @@ const Stack = C(cdk.Stack, (define) => {
     runtime: lambda.Runtime.PYTHON_3_6,
   });
 
-  const rule = def`rule`(events.Rule, {
+  const rule = define`rule`(events.Rule, {
     schedule: events.Schedule.expression("cron(0 18 ? * MON-FRI *)"),
   });
 
